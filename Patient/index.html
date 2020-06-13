@@ -1,0 +1,77 @@
+<h1 style="color:white;">Heart-Beat Abnormality Test(Beta)</h1>
+<link rel="stylesheet" type="text/css" href="script.css">
+<h2 style="color:white">Result for Patient</h2>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<div class="parent">
+  <div style="border:solid white 1px;padding:20px;background: skyblue;border-radius:5px;">
+  <div style="text-align:left">
+  <label  style="color:white;text-align: left;">Doctor ID:</label><br/>
+  </div>
+  <input type="number" name="doctor_id" id="doctor">
+  <div style="text-align:left">
+  <label style="color:white;text-align: left;">Mobile.No:</label><br/>
+  </div>
+  <input type="tel" name="phone number" id="patient"><br/>
+  <button class="btn btn-success" onclick="downLoad()">View</button>
+  <div id="messages"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBj38UiJ6hkcf1t1jSnkO-lYtk4-_1sBrw",
+    authDomain: "healthyheart-b5ed5.firebaseapp.com",
+    databaseURL: "https://healthyheart-b5ed5.firebaseio.com",
+    projectId: "healthyheart-b5ed5",
+    storageBucket: "healthyheart-b5ed5.appspot.com",
+    messagingSenderId: "842878629104",
+    appId: "1:842878629104:web:11c87ac3022ad08f6a7e35"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  
+  function downLoad(){
+        var html=""
+        var p_id=document.getElementById("patient").value
+        var d_id=document.getElementById("doctor").value;
+        var db=firebase.database().ref("PatientDetails/"+d_id+"rft"+p_id);
+         db.on("value", function(snap) {
+        console.log(snap.val())
+        if(snap.val()===null){
+            html+="<h2 style='color:white'>No records found You are diagonised with Normal Heart-Beat</h1>"
+            document.getElementById("messages").innerHTML+=html;
+            return 0;
+            
+        }
+      
+  });
+        db.on("child_added", function(snap) {
+        console.log(snap.val())
+        if(snap.val().Patient_id===p_id){
+            html+="<h4 style='color:white'>Results came out Sir."+snap.val().Patient+",age:"+snap.val().Age+" and you have been refered to "+snap.val().doctor+"</h4>"
+            document.getElementById("messages").innerHTML+=html;
+            
+        }
+      
+  });
+
+
+        
+  }
+
+
+</script>

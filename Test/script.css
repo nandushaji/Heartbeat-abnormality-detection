@@ -1,0 +1,33 @@
+*{
+	text-align:center;
+	justify-content: center;
+	vertical-align: center;
+}
+.parent{
+	display: flex;
+	flex-wrap: wrap;
+
+
+}
+.form{
+
+    width:100%;
+    text-align: left;
+    justify-content: center;
+
+}
+input{
+	width: 100%;
+
+}
+body,html {
+  width: 100%;
+ text-align:center;  
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background: url(body.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
